@@ -158,14 +158,15 @@ object BasicExercises {
     */
   def fizzBuzz(wordForThree: String, wordForFive: String, loopUntil: Int): Unit = {
     val i: Int = loopUntil
-    i match {
-      case i if (i % 3 == 0 & i % 5 == 0) => println(wordForThree + wordForFive)
-      case i if (i % 3 == 0) => println(wordForThree)
-      case i if (i % 5 == 0) => println(wordForFive)
-      case _ => println(i)
-      case 0 => fizzBuzz(wordForThree, wordForFive, i - 1)
+    if (i > 0) {
+      i match {
+        case i if (i % 3 == 0 & i % 5 == 0) => println(wordForThree + wordForFive)
+        case i if (i % 3 == 0) => println(wordForThree)
+        case i if (i % 5 == 0) => println(wordForFive)
+        case _ => println(i)
+        case 0 => fizzBuzz(wordForThree, wordForFive, i - 1)
+      }
     }
-
     //    if (i > 0) {
     //      if (i % 3 == 0 & i % 5 == 0) println(wordForThree + wordForFive)
     //      else if (i % 3 == 0) println(wordForThree)
