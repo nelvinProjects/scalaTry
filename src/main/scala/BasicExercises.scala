@@ -51,6 +51,9 @@ object BasicExercises {
 
     //FizzBuzz
     fizzBuzz("Fizz", "Buzz", 15)
+
+    //Swap values
+    println(swapValues(5, 6))
   }
 
   /**
@@ -112,14 +115,26 @@ object BasicExercises {
     * @param add      true to sum or false to multiply
     */
   def sum(valueOne: Int, valueTwo: Int, add: Boolean): Int = {
-    if (valueOne == 0 & valueTwo == 0) 0
-    if (valueOne == 0) valueTwo
-    if (valueTwo == 0) valueOne
-    if (add) {
-      valueOne + valueTwo
-    } else {
-      valueOne * valueTwo
+    valueOne match {
+      case valueOne if (valueOne == 0 & valueTwo == 0) => 0
+      case valueOne if (valueOne == 0) => valueTwo
+      case valueOne if (valueTwo == 0) => valueOne
+      case valueOne if (add) => {
+        valueOne + valueTwo
+      }
+      case valueOne if (!add) => {
+        valueOne * valueTwo
+      }
     }
+    //
+    //    if (valueOne == 0 & valueTwo == 0) 0
+    //    if (valueOne == 0) valueTwo
+    //    if (valueTwo == 0) valueOne
+    //    if (add) {
+    //      valueOne + valueTwo
+    //    } else {
+    //      valueOne * valueTwo
+    //    }
   }
 
   /**
@@ -164,8 +179,8 @@ object BasicExercises {
         case i if (i % 3 == 0) => println(wordForThree)
         case i if (i % 5 == 0) => println(wordForFive)
         case _ => println(i)
-        case 0 => fizzBuzz(wordForThree, wordForFive, i - 1)
       }
+      fizzBuzz(wordForThree, wordForFive, i - 1)
     }
     //    if (i > 0) {
     //      if (i % 3 == 0 & i % 5 == 0) println(wordForThree + wordForFive)
@@ -175,5 +190,19 @@ object BasicExercises {
     //
     //      fizzBuzz(wordForThree, wordForFive, i - 1)
     //    }
+  }
+
+  /**
+    * Takes pair of int and returns the value swapped
+    *
+    * @param valueOne the first int value
+    * @param valueTwo the second int value
+    * @return the swapped values
+    */
+  def swapValues(valueOne: Int, valueTwo: Int): Array[Int] = {
+    valueOne match {
+      case valueOne => Array(valueTwo, valueOne)
+      case _ => Array(valueOne, valueTwo)
+    }
   }
 }
