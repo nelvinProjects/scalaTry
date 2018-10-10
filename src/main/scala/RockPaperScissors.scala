@@ -2,6 +2,8 @@ import util.control.Breaks._
 
 object RockPaperScissors {
   var playerMoves = collection.mutable.ArrayBuffer[Int]()
+  var playerScore: Int = _
+  var cpuScore: Int = _
 
   def main(args: Array[String]): Unit = {
     val playOn = true
@@ -25,6 +27,7 @@ object RockPaperScissors {
         }
       }
     }
+    println(s"Final score- Player: $playerScore       CPU: $cpuScore")
   }
 
   def moveConvert(move: String): Int = {
@@ -46,37 +49,58 @@ object RockPaperScissors {
 
   def decision(userMove: Int, cpuMove: Int): String = {
     println(s"USERRR $userMove   CPUUU $cpuMove")
-    if (userMove == cpuMove) "Tie"
-    if (userMove == 1 & cpuMove != 2) {
-      s"User wins! : User chose ${convertChosen(userMove)} v CPU chose ${convertChosen(cpuMove)}"
-    } else {
-      println("1 iF state " + cpuMove != 2)
-      s"CPU wins! : User chose ${convertChosen(userMove)} v CPU chose ${convertChosen(cpuMove)}"
-    }
-    if (userMove == 2 & cpuMove != 3) {
-      s"User wins! : User chose ${convertChosen(userMove)} v CPU chose ${convertChosen(cpuMove)}"
-    } else {
-      println("2 iF state " + cpuMove != 3)
-      s"CPU wins! : User chose ${convertChosen(userMove)} v CPU chose ${convertChosen(cpuMove)}"
-    }
-    if (userMove == 3 & cpuMove != 1) {
-      s"User wins! : User chose ${convertChosen(userMove)} v CPU chose ${convertChosen(cpuMove)}"
-    } else {
-      println("3 iF state " + cpuMove != 1)
-      s"CPU wins! : User chose ${convertChosen(userMove)} v CPU chose ${convertChosen(cpuMove)}"
+    userMove match {
+      case userMove if (userMove == cpuMove) => "Tie"
+      case userMove if (userMove == 1 & cpuMove == 2) => {
+        cpuScore += 100
+        s"CPU wins! : User chose ${convertChosen(userMove)} v CPU chose ${convertChosen(cpuMove)}"
+      }
+      case userMove if (userMove == 1 & cpuMove != 2) => {
+        playerScore += 100
+        s"User wins! : User chose ${convertChosen(userMove)} v CPU chose ${convertChosen(cpuMove)}"
+      }
+      case userMove if (userMove == 2 & cpuMove == 3) => {
+        cpuScore += 100
+        s"CPU wins! : User chose ${convertChosen(userMove)} v CPU chose ${convertChosen(cpuMove)}"
+      }
+      case userMove if (userMove == 2 & cpuMove != 3) => {
+        playerScore += 100
+        s"User wins! : User chose ${convertChosen(userMove)} v CPU chose ${convertChosen(cpuMove)}"
+      }
+      case userMove if (userMove == 3 & cpuMove == 1) => {
+        cpuScore += 100
+        s"CPU wins! : User chose ${convertChosen(userMove)} v CPU chose ${convertChosen(cpuMove)}"
+      }
+      case userMove if (userMove == 3 & cpuMove != 1) => {
+        playerScore += 100
+        s"User wins! : User chose ${convertChosen(userMove)} v CPU chose ${convertChosen(cpuMove)}"
+      }
+      case _ => "Invalid move"
     }
   }
 
   def cpuMove(): Int = {
-    if (playerMoves.length < 2) {
+    if (playerMoves.length < 3) {
       val cpuFinal = scala.util.Random.nextInt((4 - 1) + 1)
-      if (cpuFinal > 0 & cpuFinal < 4) cpuFinal
+      if (cpuFinal > 0 & cpuFinal < 4) {
+        println("randomise " + cpuFinal);
+        cpuFinal
+      }
       else 2
     } else {
       playerMoves.max match {
-        case 1 => 2
-        case 2 => 3
-        case 3 => 1
+        case 1 => {
+          println("player defeat " + 2);
+          2
+        }
+        case 2 => {
+          println("player defeat " + 3);
+          3
+        }
+        case 3 => {
+          println("player defeat " + 1);
+          1
+        }
       }
     }
   }
