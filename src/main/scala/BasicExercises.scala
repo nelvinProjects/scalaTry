@@ -1,3 +1,5 @@
+import java.util.TimeZone
+
 /**
   * Basic Scala Exercises
   *
@@ -53,7 +55,20 @@ object BasicExercises {
     fizzBuzz("Fizz", "Buzz", 15)
 
     //Swap values
-    println(swapValues(5, 6))
+    println(swapValues(Array(1, 2, "Hey"))) //Passing array of integers
+    println(swapValues(List(1, 2, "End"))) //Passing list of integers
+    val tupleValue = Tuple3(1, 3, 5)
+    println(swapValues(tupleValue)) //Passing tuple of integers
+
+    //TimeZone IDs
+    println(getTimeZoneIds().mkString(", "))
+
+    //BlackJack
+    println(blackJack(0, 21))
+    println(blackJack(21, 0))
+    println(blackJack(5, 18))
+    println(blackJack(19, 5))
+    println(blackJack(-5, 5))
   }
 
   /**
@@ -199,10 +214,52 @@ object BasicExercises {
     * @param valueTwo the second int value
     * @return the swapped values
     */
-  def swapValues(valueOne: Int, valueTwo: Int): Array[Int] = {
+  def swapValues(valueOne: Any): String = {
     valueOne match {
-      case valueOne => Array(valueTwo, valueOne)
-      case _ => Array(valueOne, valueTwo)
+      case valueOne: Array[Any] => valueOne.reverse.mkString(", ")
+      case valueOne: List[Any] => valueOne.reverse.mkString(", ")
+      case valueOne if (valueOne.isInstanceOf[Product]) => Array(valueOne).mkString(", ").reverse.replace(")", "").replace("(", "")
+      case _ => "Invalid data"
     }
   }
+
+  /**
+    * Timezones array
+    *
+    * @return array containing timezones
+    */
+  def getTimeZoneIds(): Array[String] = {
+    TimeZone.getAvailableIDs.map(value => value.split("/")).filter(_.length == 2)
+      .grouped(10).map(value => value(0)(1)).toArray
+    //     .foreach(elem => println(elem(0)(1)))
+  }
+
+  /**
+    * Blackjack: Return the value closest to 21 without going over 21. If they both do
+    * return 0.
+    *
+    * @param valueOne the first value
+    * @param valueTwo the second value
+    * @return the value closest to 21 or 0
+    */
+  def blackJack(valueOne: Int, valueTwo: Int): Int = {
+    if (valueOne <= 0 & valueTwo <= 0) 0
+    else if (valueOne > 21 & valueTwo > 21) 0
+    else if (valueOne <= 21 & (valueOne > valueTwo || valueTwo > 21)) valueOne
+    else if (valueTwo <= 21 & (valueTwo > valueOne || valueOne > 21)) valueTwo
+    else -1
+  }
+
+  /**
+    * Unique Sum: Return sum of 3 inputs which are unique
+    *
+    * @param one   the first value
+    * @param two   the second value
+    * @param third the third value
+    * @return sum value of input parameters
+    */
+  def uniqueSum(one: Int, two: Int, third: Int): Int = {
+    0
+  }
+
 }
