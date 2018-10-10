@@ -20,8 +20,8 @@ object RockPaperScissors {
             break()
           }
           playerMoves += moveValue
-          println(playerMoves)
-          println(cpuMove())
+          //          println(playerMoves)
+          //          println(cpuMove())
           println(decision(moveValue, cpuMove()))
           rounds = rounds - 1
         }
@@ -48,7 +48,7 @@ object RockPaperScissors {
   }
 
   def decision(userMove: Int, cpuMove: Int): String = {
-    println(s"USERRR $userMove   CPUUU $cpuMove")
+    //    println(s"USERRR $userMove   CPUUU $cpuMove")
     userMove match {
       case userMove if (userMove == cpuMove) => "Tie"
       case userMove if (userMove == 1 & cpuMove == 2) => {
@@ -83,22 +83,22 @@ object RockPaperScissors {
     if (playerMoves.length < 3) {
       val cpuFinal = scala.util.Random.nextInt((4 - 1) + 1)
       if (cpuFinal > 0 & cpuFinal < 4) {
-        println("randomise " + cpuFinal);
+        //        println("randomise " + cpuFinal);
         cpuFinal
       }
       else 2
     } else {
       playerMoves.max match {
         case 1 => {
-          println("player defeat " + 2);
+          //          println("player defeat " + 2);
           2
         }
         case 2 => {
-          println("player defeat " + 3);
+          //          println("player defeat " + 3);
           3
         }
         case 3 => {
-          println("player defeat " + 1);
+          //          println("player defeat " + 1);
           1
         }
       }
