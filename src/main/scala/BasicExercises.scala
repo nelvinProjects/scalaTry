@@ -69,6 +69,16 @@ object BasicExercises {
     println(blackJack(5, 18))
     println(blackJack(19, 5))
     println(blackJack(-5, 5))
+
+    //Unique Sum
+    println(uniqueSum(1, 2, 3))
+    println(uniqueSum(3, 3, 3))
+    println(uniqueSum(1, 1, 2))
+
+    //Too hot
+    println(tooHot(80, false))
+    println(tooHot(100, false))
+    println(tooHot(100, true))
   }
 
   /**
@@ -259,7 +269,25 @@ object BasicExercises {
     * @return sum value of input parameters
     */
   def uniqueSum(one: Int, two: Int, third: Int): Int = {
-    0
+    if (one == two && two == third) 0
+    else if (one == two) third
+    else if (one == third) two
+    else if (two == third) one
+    else one + two + third
   }
 
+  /**
+    * Too hot: get boolean value depending on temperature and whether its summer or not
+    *
+    * @param temperature the int temperature value
+    * @param isSummer    check if its summer
+    * @return boolean if temperature within expectation
+    */
+  def tooHot(temperature: Int, isSummer: Boolean): Boolean = {
+    if (isSummer && (temperature >= 60 && temperature <= 100)) true
+    else if (temperature >= 60 && temperature <= 90) true
+    else if (!isSummer && (temperature < 60 || temperature > 90)) false
+    else if (isSummer && (temperature < 60 || temperature > 90)) false
+    else false
+  }
 }
