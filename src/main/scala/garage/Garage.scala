@@ -125,4 +125,8 @@ class Garage {
   def closeGarage(): Unit = {
     garageOpen = false
   }
+
+  def partAdd(regNo: String): Unit = {
+
+  }
 }
