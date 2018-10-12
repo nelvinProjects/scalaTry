@@ -31,7 +31,6 @@ object BrokenKeyboardNoProblem {
     println("Enter how many lines to read")
     val lines = io.StdIn.readInt()
 
-
     for (i <- 0 until lines) {
       println("Enter line of working letters")
       userInput += io.StdIn.readLine()
