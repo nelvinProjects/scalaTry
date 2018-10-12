@@ -3,6 +3,10 @@ package brokenKeyboard
 import scala.io.Source
 import scala.util.control.Breaks._
 
+/**
+  * Takes string input from user and returns the largest word possible
+  * to be created using the input.
+  */
 object BrokenKeyboardNoProblem {
   private val userInput = collection.mutable.ArrayBuffer[String]()
 
@@ -12,10 +16,18 @@ object BrokenKeyboardNoProblem {
     userInput.foreach(value => println(value + " = " + matchInputWithWords(wordForMatching, value)))
   }
 
+  /**
+    * Read text file containing words to use
+    *
+    * @return array containing words
+    */
   def readTxT(): Array[String] = {
-    Source.fromFile("C:\\Users\\Admin\\IdeaProjects\\scalaTry\\src\\main\\scala\\brokenKeyboard\\words.txt").getLines.toArray
+    Source.fromFile("..\\scalaTry\\src\\main\\scala\\brokenKeyboard\\words.txt").getLines.toArray
   }
 
+  /**
+    * Ask for how many lines the user wish to enter (int) and get the string values
+    */
   def getUserInput(): Unit = {
     println("Enter how many lines to read")
     var lines = io.StdIn.readInt()
@@ -30,6 +42,13 @@ object BrokenKeyboardNoProblem {
     }
   }
 
+  /**
+    * Takes each input and compare with array containing all the words and return the longest word
+    *
+    * @param words    the array containing all the words
+    * @param keyboard the user input
+    * @return the longest word
+    */
   def matchInputWithWords(words: Array[String], keyboard: String): String = {
     val wordsFound = collection.mutable.ArrayBuffer[String]()
     for (word <- words) {
@@ -44,11 +63,6 @@ object BrokenKeyboardNoProblem {
         if (left == 0) wordsFound += word
       }
     }
-
-    //    wordsFound.foreach(println)
-    //    println()
-    //    wordsFound.map(s => {if(s.length % 2 == 0) s.sortWith(_ < _) else s.sortWith(_ > _)}).foreach(println)
-    //    wordsFound.sortWith(_.length > _.length).foreach(println)
 
     wordsFound.length > 0 match {
       case true => wordsFound.sortWith(_.length > _.length).head
