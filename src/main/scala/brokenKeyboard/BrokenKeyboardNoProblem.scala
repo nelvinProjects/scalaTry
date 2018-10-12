@@ -1,17 +1,15 @@
 package brokenKeyboard
 
-import scala.io.Source
+import scala.collection.mutable.ArrayBuffer
 
 /**
   * Takes string input from user and returns the largest word possible
   * to be created using the input.
   */
 object BrokenKeyboardNoProblem {
-  private val userInput = collection.mutable.ArrayBuffer[String]()
-
   def main(args: Array[String]): Unit = {
     val wordForMatching = readTxT()
-    getUserInput()
+    val userInput = getUserInput()
     userInput.foreach(value => println(value + " = " + matchInputWithWords(wordForMatching, value)))
   }
 
@@ -21,13 +19,14 @@ object BrokenKeyboardNoProblem {
     * @return array containing words
     */
   def readTxT(): Array[String] = {
-    Source.fromFile("..\\scalaTry\\src\\main\\scala\\brokenKeyboard\\words.txt").getLines.toArray
+    scala.io.Source.fromFile("..\\scalaTry\\src\\main\\scala\\brokenKeyboard\\words.txt").getLines.toArray
   }
 
   /**
     * Ask for how many lines the user wish to enter (int) and get the string values
     */
-  def getUserInput(): Unit = {
+  def getUserInput(): ArrayBuffer[String] = {
+    val userInput = collection.mutable.ArrayBuffer[String]()
     println("Enter how many lines to read")
     val lines = io.StdIn.readInt()
 
@@ -35,6 +34,7 @@ object BrokenKeyboardNoProblem {
       println("Enter line of working letters")
       userInput += io.StdIn.readLine()
     }
+    userInput
   }
 
   /**
@@ -49,10 +49,6 @@ object BrokenKeyboardNoProblem {
     for (word <- words) {
       val wordChar = word.toSet
       val keyboardChar = keyboard.toSet
-      if (keyboardChar subsetOf (wordChar)) {
-        val remaining = (wordChar -- keyboardChar).size
-        if (remaining == 0) wordsFound += word
-      }
       if (wordChar subsetOf (keyboardChar)) {
         val left = (wordChar -- keyboardChar).size
         if (left == 0) wordsFound += word
