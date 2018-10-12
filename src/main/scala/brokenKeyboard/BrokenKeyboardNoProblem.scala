@@ -1,7 +1,6 @@
 package brokenKeyboard
 
 import scala.io.Source
-import scala.util.control.Breaks._
 
 /**
   * Takes string input from user and returns the largest word possible
@@ -30,15 +29,12 @@ object BrokenKeyboardNoProblem {
     */
   def getUserInput(): Unit = {
     println("Enter how many lines to read")
-    var lines = io.StdIn.readInt()
+    val lines = io.StdIn.readInt()
 
-    breakable {
-      while (true) {
-        if (lines == 0) break
-        println("Enter line of working letters")
-        userInput += io.StdIn.readLine()
-        lines = lines - 1
-      }
+
+    for (i <- 0 until lines) {
+      println("Enter line of working letters")
+      userInput += io.StdIn.readLine()
     }
   }
 
@@ -64,7 +60,7 @@ object BrokenKeyboardNoProblem {
       }
     }
 
-    wordsFound.length > 0 match {
+    wordsFound.nonEmpty match {
       case true => wordsFound.sortWith(_.length > _.length).head
       case _ => "None Found"
     }
