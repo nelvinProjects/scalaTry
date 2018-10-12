@@ -9,5 +9,7 @@ package garage
   * @param bill        the cost of vehicle repair
   */
 abstract class Vehicle(val regNo: String, val vehicleType: String, var fixed: Boolean, var bill: Double) {
-  def viewPart(regNp: String): Array[Any]
+  def viewPart(regNo: String): Array[Any]
+
+  def breakParts()
 }

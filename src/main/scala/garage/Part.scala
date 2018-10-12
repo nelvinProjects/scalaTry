@@ -8,5 +8,5 @@ package garage
   * @param broken   whether the part is broken and needs fixing
   * @param partCost cost of repair
   */
-class Part(val regNo: String, val partName: String, var broken: Boolean, var partCost: Double) {
+class Part(val regNo: String, val partName: String, var broken: Boolean, val partCost: Double) {
 }

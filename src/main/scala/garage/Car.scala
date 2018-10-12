@@ -20,4 +20,6 @@ class Car(regNo: String, customer: Customer) extends Vehicle(regNo, "car", false
   override def viewPart(regNp: String): Array[Any] = {
     carParts.map(x => if (x.regNo == regNo) Array(x))
   }
+
+  override def breakParts(): Unit = ???
 }

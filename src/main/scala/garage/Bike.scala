@@ -21,4 +21,9 @@ class Bike(regNo: String, customer: Customer) extends Vehicle(regNo, "bike", fal
   override def viewPart(regNo: String): Array[Any] = {
     bikeParts.map(x => if (x.regNo == regNo) Array(x))
   }
+
+  override def breakParts(): Unit = {
+    val brokenPartIndex = scala.collection.mutable.ArrayBuffer.empty[Int]
+    for (i <- 0 until 4) bikeParts(scala.util.Random.nextInt((10 - 0) + 1)).broken = true
+  }
 }

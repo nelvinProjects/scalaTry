@@ -126,7 +126,7 @@ class Garage {
     garageOpen = false
   }
 
-  def partAdd(regNo: String): Unit = {
+  def brokenParts(regNo: String): Unit = {
 
   }
 }
