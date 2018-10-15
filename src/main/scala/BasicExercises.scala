@@ -139,27 +139,12 @@ object BasicExercises {
     * @param valueTwo second int value
     * @param add      true to sum or false to multiply
     */
-  def sum(valueOne: Int, valueTwo: Int, add: Boolean): Int = {
-    valueOne match {
-      case valueOne if (valueOne == 0 & valueTwo == 0) => 0
-      case valueOne if (valueOne == 0) => valueTwo
-      case valueOne if (valueTwo == 0) => valueOne
-      case valueOne if (add) => {
-        valueOne + valueTwo
-      }
-      case valueOne if (!add) => {
-        valueOne * valueTwo
-      }
-    }
-    //
-    //    if (valueOne == 0 & valueTwo == 0) 0
-    //    if (valueOne == 0) valueTwo
-    //    if (valueTwo == 0) valueOne
-    //    if (add) {
-    //      valueOne + valueTwo
-    //    } else {
-    //      valueOne * valueTwo
-    //    }
+  def sum(valueOne: Int, valueTwo: Int, add: Boolean): Int = valueOne match {
+    case valueOne if valueOne == 0 & valueTwo == 0 => 0
+    case valueOne if valueOne == 0 => valueTwo
+    case valueOne if valueTwo == 0 => valueOne
+    case valueOne if add => valueOne + valueTwo
+    case valueOne if !add => valueOne * valueTwo
   }
 
   /**
@@ -182,10 +167,7 @@ object BasicExercises {
     */
   def wordSquare(word: String, squareLength: Int): Unit = {
     for (i <- 0 until squareLength) {
-      for (j <- 0 until squareLength) {
-        print(word)
-      }
-      println()
+      println(word * squareLength)
     }
   }
 
@@ -197,24 +179,15 @@ object BasicExercises {
     * @param loopUntil    final loop value
     */
   def fizzBuzz(wordForThree: String, wordForFive: String, loopUntil: Int): Unit = {
-    val i: Int = loopUntil
-    if (i > 0) {
-      i match {
-        case i if (i % 3 == 0 & i % 5 == 0) => println(wordForThree + wordForFive)
-        case i if (i % 3 == 0) => println(wordForThree)
-        case i if (i % 5 == 0) => println(wordForFive)
-        case _ => println(i)
+    if (loopUntil > 0) {
+      loopUntil match {
+        case i if i % 3 == 0 & i % 5 == 0 => println(wordForThree + wordForFive)
+        case i if i % 3 == 0 => println(wordForThree)
+        case i if i % 5 == 0 => println(wordForFive)
+        case _ => println(loopUntil)
       }
-      fizzBuzz(wordForThree, wordForFive, i - 1)
+      fizzBuzz(wordForThree, wordForFive, loopUntil - 1)
     }
-    //    if (i > 0) {
-    //      if (i % 3 == 0 & i % 5 == 0) println(wordForThree + wordForFive)
-    //      else if (i % 3 == 0) println(wordForThree)
-    //      else if (i % 5 == 0) println(wordForFive)
-    //      else println(i)
-    //
-    //      fizzBuzz(wordForThree, wordForFive, i - 1)
-    //    }
   }
 
   /**
@@ -224,14 +197,13 @@ object BasicExercises {
     * @param valueTwo the second int value
     * @return the swapped values
     */
-  def swapValues(valueOne: Any): String = {
-    valueOne match {
-      case valueOne: Array[Any] => valueOne.reverse.mkString(", ")
-      case valueOne: List[Any] => valueOne.reverse.mkString(", ")
-      case valueOne if (valueOne.isInstanceOf[Product]) => Array(valueOne).mkString(", ").reverse.replace(")", "").replace("(", "")
-      case _ => "Invalid data"
-    }
+  def swapValues(valueOne: Any): String = valueOne match {
+    case valueOne: Array[Any] => valueOne.reverse.mkString(", ")
+    case valueOne: List[Any] => valueOne.reverse.mkString(", ")
+    case valueOne if valueOne.isInstanceOf[Product] => Array(valueOne).mkString(", ").reverse.replace(")", "").replace("(", "")
+    case _ => "Invalid data"
   }
+
 
   /**
     * Timezones array
@@ -241,7 +213,6 @@ object BasicExercises {
   def getTimeZoneIds(): Array[String] = {
     TimeZone.getAvailableIDs.map(value => value.split("/")).filter(_.length == 2)
       .grouped(10).map(value => value(0)(1)).toArray
-    //     .foreach(elem => println(elem(0)(1)))
   }
 
   /**
@@ -252,12 +223,12 @@ object BasicExercises {
     * @param valueTwo the second value
     * @return the value closest to 21 or 0
     */
-  def blackJack(valueOne: Int, valueTwo: Int): Int = {
-    if (valueOne <= 0 & valueTwo <= 0) 0
-    else if (valueOne > 21 & valueTwo > 21) 0
-    else if (valueOne <= 21 & (valueOne > valueTwo || valueTwo > 21)) valueOne
-    else if (valueTwo <= 21 & (valueTwo > valueOne || valueOne > 21)) valueTwo
-    else -1
+  def blackJack(valueOne: Int, valueTwo: Int): Int = valueOne match {
+    case _ if valueOne <= 0 & valueTwo <= 0 => 0
+    case _ if valueOne > 21 & valueTwo > 21 => 0
+    case _ if valueOne <= 21 & (valueOne > valueTwo || valueTwo > 21) => valueOne
+    case _ if valueTwo <= 21 & (valueTwo > valueOne || valueOne > 21) => valueTwo
+    case _ => -1
   }
 
   /**
@@ -268,12 +239,12 @@ object BasicExercises {
     * @param third the third value
     * @return sum value of input parameters
     */
-  def uniqueSum(one: Int, two: Int, third: Int): Int = {
-    if (one == two && two == third) 0
-    else if (one == two) third
-    else if (one == third) two
-    else if (two == third) one
-    else one + two + third
+  def uniqueSum(one: Int, two: Int, third: Int): Int = one match {
+    case _ if one == two && two == third => 0
+    case _ if one == two => third
+    case _ if one == third => two
+    case _ if two == third => one
+    case _ => one + two + third
   }
 
   /**
@@ -283,11 +254,12 @@ object BasicExercises {
     * @param isSummer    check if its summer
     * @return boolean if temperature within expectation
     */
-  def tooHot(temperature: Int, isSummer: Boolean): Boolean = {
-    if (isSummer && (temperature >= 60 && temperature <= 100)) true
-    else if (temperature >= 60 && temperature <= 90) true
-    else if (!isSummer && (temperature < 60 || temperature > 90)) false
-    else if (isSummer && (temperature < 60 || temperature > 90)) false
-    else false
+  def tooHot(temperature: Int, isSummer: Boolean): Boolean = temperature match {
+    case _ if isSummer && (temperature >= 60 && temperature <= 100) => true
+    case _ if temperature >= 60 && temperature <= 90 => true
+    case _ if !isSummer && (temperature < 60 || temperature > 90) => false
+    case _ if isSummer && (temperature < 60 || temperature > 90) => false
+    case _ => false
   }
+
 }
