@@ -32,6 +32,8 @@ object Main {
 
     println(garage.allVehicles())
 
+    garage.brokenParts("TK08")
+
     garage.closeGarage()
   }
 }

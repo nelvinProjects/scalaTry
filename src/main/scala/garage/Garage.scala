@@ -127,6 +127,6 @@ class Garage {
   }
 
   def brokenParts(regNo: String): Unit = {
-
+    storeVehicles(regNo).viewPart(regNo)
   }
 }

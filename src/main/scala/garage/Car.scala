@@ -17,9 +17,10 @@ class Car(regNo: String, customer: Customer) extends Vehicle(regNo, "car", false
 
   override def toString: String = f"Car reg no. $regNo. Fixed: $fixed. Total cost £$bill%.2f\nCustomer: ${customer.toString}\n"
 
-  override def viewPart(regNp: String): Array[Any] = {
+  override def viewPart(regNp: String) = {
     carParts.map(x => if (x.regNo == regNo) Array(x))
   }
 
   override def breakParts(): Unit = ???
+
 }
