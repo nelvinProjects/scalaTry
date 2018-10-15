@@ -28,9 +28,8 @@ object BrokenKeyboardNoProblem {
   def getUserInput(): ArrayBuffer[String] = {
     val userInput = collection.mutable.ArrayBuffer[String]()
     println("Enter how many lines to read")
-    val lines = io.StdIn.readInt()
 
-    for (i <- 0 until lines) {
+    for (i <- 0 until io.StdIn.readInt()) {
       println("Enter line of working letters")
       userInput += io.StdIn.readLine()
     }
