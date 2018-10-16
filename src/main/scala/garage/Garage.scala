@@ -1,5 +1,7 @@
 package garage
 
+import util.control.Breaks._
+
 /**
   * Garage class: responsible for ->
   * adding vehicle, removing vehicle, registering employees, fixing vehicle
@@ -126,7 +128,55 @@ class Garage {
     garageOpen = false
   }
 
+  /**
+    * Check broken part
+    *
+    * @param regNo the vehicle registration number
+    */
   def brokenParts(regNo: String): Unit = {
-    storeVehicles(regNo).viewPart(regNo)
+    if (!garageOpen) println("Garage Closed-Not able to do process")
+    else
+      storeVehicles(regNo).viewPart(regNo).foreach(println)
+  }
+
+  /**
+    * Fix vehicle depending on available staff
+    */
+  def fixVehicle() = {
+    if (!garageOpen) println("Garage Closed-Not able to do process")
+    else {
+      var totalTime: Int = 0
+      storeVehicles.foreach(x => x._2.viewPart(x._2.regNo).foreach(part => totalTime += part.timeToFixMins))
+      println(s"\nTotal vehicles to fix ${storeVehicles.size} and will take ${totalTime / 60} hours to fix")
+
+      var employees: Int = garageEmployees.size - 1
+      var employeePerDayHours: Int = 320
+      var todayEarning: Double = 0
+      var count = 0
+      breakable {
+        for (vehicle <- storeVehicles) {
+          if (employees == -1) break()
+          val toFix = vehicle._2.viewPart(vehicle._2.regNo)
+          for (each <- toFix) {
+            if (employeePerDayHours <= 0) {
+              employees -= 1
+              employeePerDayHours = 320
+            }
+            if (employees == -1) break()
+            println(s"\nFixing vehicle ${each.regNo}, part ${each.partName}, by ${garageEmployees(employees).firstName}" +
+              s" ${garageEmployees(employees).secondName}")
+            employeePerDayHours -= each.timeToFixMins
+            todayEarning += each.partCost
+            storeVehicles(each.regNo).fixPart(each.regNo, each.partID)
+            println(s"Fixed vehicle ${each.regNo}, part: ${each.partName}, cost: £${each.partCost}, time taken: ${each.timeToFixMins} mins")
+          }
+          storeVehicles(vehicle._2.regNo).fixed = true
+          count += 1
+        }
+      }
+      println(s"\nFixed $count vehicles today between ${garageEmployees.size} employees with total earning" +
+        f" £$todayEarning%.2f\n")
+    }
+    storeVehicles.foreach(x => x._2.viewPart(x._2.regNo).foreach(part => println(s"Remaining vehicle and part to fix $part")))
   }
 }

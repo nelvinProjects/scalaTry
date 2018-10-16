@@ -4,7 +4,7 @@ package garage
   * Employee working at garage
   *
   * @author Nelvin
-  * @param firstName  takes firstname
+  * @param firstName  takes first name
   * @param secondName takes surname
   * @param age        age of person
   */
