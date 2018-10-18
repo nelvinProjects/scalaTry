@@ -1,5 +1,3 @@
-import util.control.Breaks._
-
 /**
   * Rock, Paper, Scissors Game:
   * Player can choose the rounds to play and there are two modes available:
@@ -9,6 +7,9 @@ import util.control.Breaks._
   *
   * @author Nelvin
   */
+
+import util.control.Breaks._
+
 object RockPaperScissors {
   /**
     * Store the scores and player's previous moves
